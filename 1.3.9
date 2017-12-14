@@ -1,0 +1,27 @@
+import edu.princeton.cs.introcs.StdIn;
+import edu.princeton.cs.introcs.StdOut;
+
+public class wfznb {
+    public static void main(String[] args)
+    {
+        Stack<Character> ops  = new Stack<Character>();
+        Stack<String> vals = new Stack<String>();
+        while (!StdIn.isEmpty()){
+            String s = StdIn.readString();
+            for(int i = 0;i<s.length();i++){
+                if(s.charAt(i) == '+' || s.charAt(i) == '-' || s.charAt(i) == '*' || s.charAt(i) == '/'){
+                    ops.push(s.charAt(i));
+                }
+                else if(s.charAt(i) == ')' || s.charAt(i) == ']' || s.charAt(i) == '}'){
+                    String op = String.valueOf(s.charAt(i));
+                    String a = vals.pop();
+                    String b = String.valueOf(ops.pop());
+                    String c = vals.pop();
+                    vals.push("("+c+b+a+op);
+                }
+                else vals.push(String.valueOf(s.charAt(i)));
+            }
+        }
+        StdOut.println(vals.pop());
+    }
+}
